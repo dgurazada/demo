@@ -1,5 +1,5 @@
 eureka:
-  password:H0wAr3Y0U!
+  password:'{cipher}AQDEIus3eL7dg06Ikwr3zcJebZtbbf5cx2R0sSEtpeHHDEGrgBn9WZEoHbVqpIZOvCsA+B48xYTYbqKG5pu/1CV8GYn2JDPEZ7NPK8g9XCqoz8R1kw3kYg1oNNxP7GaG5TYM+sTL4xRxyAu5S0pJuLRFsAt1vSfnvgVYMD+kFsJCP5btM6cTLuX0DO+iZlTLE8VYYzbcQ+uy3tpbGF2VW53unyQDXv4td4tt/oED5sVCZqprlLF6AdBZ0pmVbfnYf30lJ8QZl+6Fb7rz6nvit9R2r9Wx5gi4x+paA9/gwXmbTWhLACtNcHUfe8v8uJya4Canv3l3EKIDv8aFM5PZEKqRUX35MP51kZtWG2hfdU/3NVxDqpEQjrn/ERroYe51UDme3aSVNpvZy2oO4rBKu1es'
     healthCheckUrlPath: /admin/health
     statusPageUrlPath: /admin/info
     leaseExpirationDurationInSeconds: 90
