@@ -1,0 +1,624 @@
+{
+  "summary": {
+    "title": "MiOrg-",
+    "owner": "Dileep Gurazada",
+    "description": "Application is used for managing an employee lifecycle"
+  },
+  "detail": {
+    "contributors": [],
+    "diagrams": [
+      {
+        "title": "Infrastructure/backend data flow- MiOrg",
+        "thumbnail": "./public/content/images/thumbnail.jpg",
+        "id": 0,
+        "$$hashKey": "object:85",
+        "diagramJson": {
+          "cells": [
+            {
+              "type": "tm.Actor",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 50,
+                "y": 50
+              },
+              "angle": 0,
+              "id": "2225f95b-a405-4e0b-be13-05fea80ef873",
+              "z": 1,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "manager/admin"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Actor",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 330,
+                "y": 209
+              },
+              "angle": 0,
+              "id": "95b66cf2-6a00-4739-8e13-2ec411f919f9",
+              "z": 2,
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "title": "sensitive data leakage",
+                  "type": "Information disclosure",
+                  "description": "Service account to talk to AD is in github config file encrypted. easy to decrypt as many knows the endpoint and have access.",
+                  "mitigation": "Remove the account credentials and save it in server env variable till Vault is used",
+                  "$$hashKey": "object:147"
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "title": "possible elevated privilige account",
+                  "type": "Elevation of privilege",
+                  "description": "Whether the service account to talk to AD is of least privilege or not",
+                  "mitigation": "identify right account and provision it to App.\n service account type 'Account operator', \nMembers of this group can create and modify most types of accounts, including those of users, local groups, and global groups, and members can log in locally to domain controllers",
+                  "$$hashKey": "object:112"
+                },
+                {
+                  "status": "Open",
+                  "severity": "Low",
+                  "type": "Elevation of privilege",
+                  "title": "possible access to different role in CAS and Ops portal",
+                  "description": "User roles can be replicated from employees, cant be sure as each domain has multiple users with different roles based on their daily work.\n\nMultiple roles are allowed to access MiOrg Including Directors so for an employee they can choose manager access instead of regular previlige.",
+                  "mitigation": "Atleast audit should be happening continuously. We have logs being stored in Miorg db.",
+                  "$$hashKey": "object:153"
+                }
+              ],
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "MiOrg site"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "2225f95b-a405-4e0b-be13-05fea80ef873"
+              },
+              "target": {
+                "id": "95b66cf2-6a00-4739-8e13-2ec411f919f9"
+              },
+              "vertices": [
+                {
+                  "x": 274,
+                  "y": 173
+                }
+              ],
+              "id": "6101c2c6-1db9-4ef6-bb0f-8a0e54450a77",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Onboarding/Off\nboarding",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 3,
+              "hasOpenThreats": false,
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "protocol": "https",
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Store",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 332,
+                "y": 389
+              },
+              "angle": 0,
+              "id": "16bcce63-6735-4da1-a0bb-806347a6e55f",
+              "z": 4,
+              "hasOpenThreats": true,
+              "isALog": true,
+              "storesCredentials": true,
+              "isSigned": false,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "Low",
+                  "type": "Information disclosure",
+                  "description": "Database has encrypted password of new employee",
+                  "mitigation": "passwords are encrypted AES 256.",
+                  "title": "sensitive information",
+                  "$$hashKey": "object:93"
+                }
+              ],
+              "isEncrypted": true,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "G-Auth"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "95b66cf2-6a00-4739-8e13-2ec411f919f9"
+              },
+              "target": {
+                "id": "16bcce63-6735-4da1-a0bb-806347a6e55f"
+              },
+              "vertices": [
+                {
+                  "x": 410,
+                  "y": 318
+                },
+                {
+                  "x": 408,
+                  "y": 364
+                }
+              ],
+              "id": "e8528b6e-2017-4169-a10e-95a5446ca7b1",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 5,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "16bcce63-6735-4da1-a0bb-806347a6e55f"
+              },
+              "target": {
+                "id": "95b66cf2-6a00-4739-8e13-2ec411f919f9"
+              },
+              "vertices": [
+                {
+                  "x": 407,
+                  "y": 359
+                },
+                {
+                  "x": 409,
+                  "y": 318
+                }
+              ],
+              "id": "d26edc07-00d5-47c3-8dfc-25224ff0ac86",
+              "labels": [
+                {
+                  "position": {
+                    "distance": 0.5462487284278791,
+                    "offset": 11.925920370211022
+                  },
+                  "attrs": {
+                    "text": {
+                      "text": "internal app\naccess(ops portal and\napps in ops portal)",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 6,
+              "hasOpenThreats": true,
+              "protocol": "http",
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "Low",
+                  "title": "Can have encrypted password during transit",
+                  "type": "Information disclosure",
+                  "description": "miorg app to DB is on http. It is low because non of our apps does encrypt the traffic to DB.",
+                  "mitigation": "https",
+                  "$$hashKey": "object:75"
+                }
+              ],
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Store",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 363,
+                "y": 1
+              },
+              "angle": 0,
+              "id": "34414447-4241-4bac-88b8-4d9686511948",
+              "z": 7,
+              "hasOpenThreats": false,
+              "storesCredentials": true,
+              "isALog": true,
+              "outOfScope": true,
+              "reasonOutOfScope": "not a miorg entity",
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isOutOfScope"
+                },
+                "text": {
+                  "text": "ADP"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "34414447-4241-4bac-88b8-4d9686511948"
+              },
+              "target": {
+                "id": "95b66cf2-6a00-4739-8e13-2ec411f919f9"
+              },
+              "vertices": [
+                {
+                  "x": 437,
+                  "y": 106
+                },
+                {
+                  "x": 425,
+                  "y": 158
+                }
+              ],
+              "id": "815c61e0-2193-4fab-bcb7-036650657d3e",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "employee info",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 8,
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "Low",
+                  "title": "Probable PII",
+                  "type": "Information disclosure",
+                  "description": "Employee info is gathered from HR DB and moved to Gauth DB",
+                  "mitigation": "encrypt PII in rest?",
+                  "$$hashKey": "object:88"
+                }
+              ],
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Store",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 677,
+                "y": 214
+              },
+              "angle": 0,
+              "id": "75910d9d-5f0a-4908-9882-367d78c34f81",
+              "z": 11,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Okta"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "95b66cf2-6a00-4739-8e13-2ec411f919f9"
+              },
+              "target": {
+                "id": "75910d9d-5f0a-4908-9882-367d78c34f81"
+              },
+              "vertices": [],
+              "id": "9f40de83-2180-423e-ba3d-b07722a156ac",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "user CRUD, external\napp access(O365,\nsumo logic)",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 12,
+              "hasOpenThreats": false,
+              "isEncrypted": true,
+              "protocol": "LDAPS,cert based",
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Store",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 665,
+                "y": 387
+              },
+              "angle": 0,
+              "id": "34741f2b-6dac-4f9c-962b-16c0d2b5d472",
+              "z": 13,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "AD"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "34741f2b-6dac-4f9c-962b-16c0d2b5d472"
+              },
+              "target": {
+                "id": "75910d9d-5f0a-4908-9882-367d78c34f81"
+              },
+              "vertices": [],
+              "id": "d1d486e5-a619-46b8-b701-830dbf95d200",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 14,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "75910d9d-5f0a-4908-9882-367d78c34f81"
+              },
+              "target": {
+                "id": "34741f2b-6dac-4f9c-962b-16c0d2b5d472"
+              },
+              "vertices": [],
+              "id": "1ee9d8a8-ed7b-4a4f-a6f7-1240535b7a9d",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "sync",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 15,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Actor",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 675,
+                "y": 71
+              },
+              "angle": 0,
+              "id": "25eaa869-1ea1-4d65-95d5-bc8c18776aef",
+              "z": 16,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "ZenDesk"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "95b66cf2-6a00-4739-8e13-2ec411f919f9"
+              },
+              "target": {
+                "id": "25eaa869-1ea1-4d65-95d5-bc8c18776aef"
+              },
+              "vertices": [],
+              "id": "c9d92249-99f9-4fba-9df0-90c600f3b929",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "CAS access",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 17,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            }
+          ]
+        },
+        "size": {
+          "height": 590,
+          "width": 1717
+        }
+      }
+    ],
+    "reviewer": "Josh"
+  }
+}
